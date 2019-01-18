@@ -15,24 +15,31 @@
 </head>
 <body>
     <div class="grid">
-    <header class="quiz_head_container">
         <nav>
             <ul class="navbar_container">
                 <li class="logo">
-                    <a href="/index.html"></a>
+                    <a href="index.html">LOGO</a>
                 </li>
-                <li class="js_quiz_score">Score: 0</li>
+                <li class="js_quiz_score">SCORE: 0</li>
                 <li class="home_nav">
-                    <a href="/index.html">Home</a>
+                    <a href="index.html">RESET</a>
                 </li>
             </ul>
         </nav>
-    </header>
     <main>
         <div class="quiz_container">
             <button class="js_speaker_button" aria-label="play tone"></button>
             <form class="js_quiz">
-                <button class="js_quiz_submit" type="submit">SUBMIT</button>
+                <input type="radio" id="answerTone1" name="answer" value="answerTone1" />
+                <label class="js_quiz answerTone first" for="answerTone1"></label>
+                <input type="radio" id="answerTone2" name="answer" value="answerTone2" />
+                <label class="js_quiz answerTone second" for="answerTone2"></label>
+                <input type="radio" id="answerTone3" name="answer" value="answerTone3" />
+                <label class="js_quiz answerTone third" for="answerTone3"></label>
+                <input type="radio" id="answerTone4" name="answer" value="answerTone4" />
+                <label class="js_quiz answerTone fourth" for="answerTone4"></label>
+
+                <button class="js_quiz submit" type="submit">SUBMIT</button>
             </form>
         </div>
     </main>
