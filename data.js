@@ -2,6 +2,6 @@
 
 const tone = [
     {
-        question: 
+        question: 0,
     }
 ]
