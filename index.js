@@ -10,6 +10,7 @@ function renderQuiz() {
     // setting dynamic HTML to populate the DOM
     const quizStartString = `
     <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+    <audio id="js_play" src="assets/audio/quiz_app_start_fast.mp3" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
     <div class="welcome_box">
         <ul>
             <li>PRESS THE SPEAKER BUTTON TO PLAY A TONE</li>
@@ -21,6 +22,7 @@ function renderQuiz() {
 
     const quizQuestionString = `
     <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+    <audio id="js_play" src="assets/audio/quiz_app_start_fast.mp3" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
     <form class="js_quiz">
         <input type="radio" id="answerTone1" name="answer" value="answerTone1" required />
         <label class="js_quiz answerTone first" for="answerTone1"></label>
@@ -110,6 +112,7 @@ function scoreColor() {
 // update the current question
 function updateQuestionNum() {
     console.log('`updateQuestionNum` ran');
+    return questionNum++;
 };
 
 // resets the quiz to beginning
@@ -118,8 +121,15 @@ function resetQuiz() {
 };
 
 // play tone with speaker icon button
-function playQuestionTone() {
+function handleSpeakerClick() {
     console.log('`playTone` ran');
+
+    // set parameters for which tone plays on click
+    $('.js_speaker_button').click(function() {
+
+        $('#js_play').get(0).play();
+        
+    });
 };
 
 // play tone associated with answer selection 
@@ -141,9 +151,8 @@ function handleQuiz() {
     renderQuiz();
     scorePlusOne();
     scoreColor();
-    updateQuestionNum();
     resetQuiz();
-    playQuestionTone();
+    handleSpeakerClick();
     playAnswerTone();
     handleSubmit();
 }
