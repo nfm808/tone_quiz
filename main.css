@@ -1,5 +1,5 @@
 html, body{ 
-    min-width: 100vh;
+    min-width: 100vw;
     min-height: 100vh;
     overflow: auto;
   }
@@ -29,7 +29,7 @@ nav {
     width: 100%;
 }
 
-.quiz_container {
+.js_quiz_container {
     width: 50%;
     margin: auto;
     text-align: center;
