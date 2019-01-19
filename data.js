@@ -85,4 +85,4 @@ const tone = [
         answerImg: "assets/img/sn/g.jpg",
         asked: false
     },
-]
+];
