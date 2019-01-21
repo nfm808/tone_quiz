@@ -1,7 +1,11 @@
 'use strict';
 
 let score = 0;
-let questionNum = 0;
+let questionNum = 1;
+// controls which question is generated
+let index = 0;
+// toggles between question and results page
+let answerToggle = 0;
 
 function renderQuiz() {
     // render the quiz
@@ -20,20 +24,7 @@ function renderQuiz() {
     </div>
     <button type="button" class="js_begin_button submit" aria-label="start">LET'S START!</button>`
 
-    const quizQuestionString = `
-    <button class="js_speaker_button" type="button" aria-label="play tone"></button>
-    <audio id="js_play" src="assets/audio/quiz_app_start_fast.mp3" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
-    <form class="js_quiz">
-        <input type="radio" id="answerTone1" name="answer" value="answerTone1" required />
-        <label class="js_quiz answerTone first" for="answerTone1"></label>
-        <input type="radio" id="answerTone2" name="answer" value="answerTone2" required />
-        <label class="js_quiz answerTone second" for="answerTone2"></label>
-        <input type="radio" id="answerTone3" name="answer" value="answerTone3" required />
-        <label class="js_quiz answerTone third" for="answerTone3"></label>
-        <input type="radio" id="answerTone4" name="answer" value="answerTone4" required />
-        <label class="js_quiz answerTone fourth" for="answerTone4"></label></br>
-        <button class="js_question_button submit" type="submit">SUBMIT</button>
-    </form>`
+    let quizQuestionString = generateQuestionString();
 
     const quizResult = `
     <button class="js_speaker_button" type="button" aria-label="play tone"></button>
@@ -80,11 +71,23 @@ function renderQuiz() {
 
         if (questionNum === 0) {
             $('.js_quiz_container').html(quizStartString);
+            handleSpeakerClick();
          }; 
-         if (questionNum === 10) {
+        if (questionNum === 10) {
              $('.js_quiz_container').html(quizEnd);
          };
- 
+        if (questionNum > 0 && questionNum < 10) {
+            if (answerToggle === 0) {
+                $('.js_quiz_container').html(quizQuestionString);
+                handleSpeakerClick();
+                playAnswerTone();
+                handleAnswerImg();
+                
+            };
+            if (answerToggle === 1) {
+                $('.js_quiz_container').html(quizResult);
+            };
+        };
     };
 
     renderTopBar();
@@ -94,6 +97,59 @@ function renderQuiz() {
 // add to the score
 function scorePlusOne() {
     console.log('`scorePlusOne` ran');
+    ++score;
+    console.log(score);
+};
+
+// handles the generation of question string
+function generateQuestionString() {
+
+    // mapping the location of the current question to the 
+    // to the control index
+    let toneToPlayOnSpeaker = tone[index]["answerTone"];
+    let toneAnswerA = tone[index]["toneOptions"][0];
+    let toneAnswerB = tone[index]["toneOptions"][1]
+    let toneAnswerC = tone[index]["toneOptions"][2]
+    let toneAnswerD = tone[index]["toneOptions"][3]
+
+    // return the HTML for DOM insertion
+    return `
+    <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+    <audio id="js_play" src="${toneToPlayOnSpeaker}" preload="auto" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
+    <form class="js_quiz">
+        <input type="radio" id="answerToneA" name="answer" value="answerToneA" required />
+        <label class="js_quiz answerTone first" for="answerToneA"></label>
+        <audio id="js_play_A" src="${toneAnswerA}" preload="auto" ></audio>
+        <input type="radio" id="answerToneB" name="answer" value="answerToneB" required />
+        <label class="js_quiz answerTone second" for="answerToneB"></label>
+        <audio id="js_play_B" src="${toneAnswerB}" preload="auto" ></audio>
+        <input type="radio" id="answerToneC" name="answer" value="answerToneC" required />
+        <label class="js_quiz answerTone third" for="answerToneC"></label>
+        <audio id="js_play_C" src="${toneAnswerC}" preload="auto" ></audio>
+        <input type="radio" id="answerToneD" name="answer" value="answerToneD" required />
+        <label class="js_quiz answerTone fourth" for="answerToneD"></label></br>
+        <audio id="js_play_D" src="${toneAnswerD}" preload="auto" ></audio>
+        <button class="js_question_button submit" type="submit">SUBMIT</button>
+    </form>`
+
+};
+
+// generate the img for answer selections
+function handleAnswerImg() {
+
+    // mapping the staff note images
+    let imgAnswerA = tone[index]["imgOptions"][0];
+    let imgAnswerB = tone[index]["imgOptions"][1];
+    let imgAnswerC = tone[index]["imgOptions"][2];
+    let imgAnswerD = tone[index]["imgOptions"][3];
+
+    // sets the css to render the staff note images
+    // to the labels
+    $(".first").css('background-image', 'url(' + imgAnswerA + ')');
+    $(".second").css('background-image', 'url(' + imgAnswerB + ')');
+    $(".third").css('background-image', 'url(' + imgAnswerC + ')');
+    $(".fourth").css('background-image', 'url(' + imgAnswerD + ')');
+
 };
 
 // change the score color as you approach victory!
@@ -112,7 +168,7 @@ function scoreColor() {
 // update the current question
 function updateQuestionNum() {
     console.log('`updateQuestionNum` ran');
-    return questionNum++;
+    ++questionNum;
 };
 
 // resets the quiz to beginning
@@ -124,7 +180,6 @@ function resetQuiz() {
 function handleSpeakerClick() {
     console.log('`playTone` ran');
 
-    // set parameters for which tone plays on click
     $('.js_speaker_button').click(function() {
 
         $('#js_play').get(0).play();
@@ -136,6 +191,20 @@ function handleSpeakerClick() {
 // as user selects the answer choice
 function playAnswerTone() {
     console.log('`playAnswerTone` ran');
+
+    $('#answerToneA').focus(function() {
+        $('#js_play_A').get(0).play();
+    });
+    $('#answerToneB').focus(function() {
+        $('#js_play_B').get(0).play();
+    });
+    $('#answerToneC').focus(function() {
+        $('#js_play_C').get(0).play();
+    });
+    $('#answerToneD').focus(function() {
+        $('#js_play_D').get(0).play();
+    });
+
 };
 
 // when the submit button is hit
@@ -144,16 +213,13 @@ function handleSubmit() {
 };
 
 // this function will be our callback when the page loads. it's responsible for
-// initially rendering the shopping list, and activating our individual functions
+// initially rendering the HTML, and activating our individual functions
 // that handle new item submission and user clicks on the "check" and "delete" buttons
 // for individual shopping list items.
 function handleQuiz() {
     renderQuiz();
-    scorePlusOne();
     scoreColor();
     resetQuiz();
-    handleSpeakerClick();
-    playAnswerTone();
     handleSubmit();
 }
 

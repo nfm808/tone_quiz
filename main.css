@@ -130,14 +130,14 @@ nav li a:hover {
             filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
 .first {
-    background-image: url(assets/img/staff_notes/a_sharp.jpg);
+    background-image: url('assets/img/sn/a_sharp.jpg');
 }
 .second {
-    background-image: url(assets/img/staff_notes/b.jpg);
+    background-image: url();
 }
 .third {
-    background-image: url(assets/img/staff_notes/c.jpg);
+    background-image: url();
 }
 .fourth {
-    background-image: url(assets/img/staff_notes/d_sharp.jpg);
+    background-image: url();
 }
