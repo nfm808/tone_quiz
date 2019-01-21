@@ -1,11 +1,13 @@
 'use strict';
 
 let score = 0;
-let questionNum = 1;
+let questionNum = 0;
 // controls which question is generated
 let index = 0;
 // toggles between question and results page
 let answerToggle = 0;
+// determines if correct or wrong
+let rightOrWrong = true;
 
 function renderQuiz() {
     // render the quiz
@@ -26,13 +28,7 @@ function renderQuiz() {
 
     let quizQuestionString = generateQuestionString();
 
-    const quizResult = `
-    <button class="js_speaker_button" type="button" aria-label="play tone"></button>
-    <div class="welcome_box">
-        <h1>WAY TO GO! || KEEP LISTENING!</h1>
-        <img src="assets/img/staff_notes/a.jpg" alt="note on staff"></img>
-    </div>
-    <button class="js_next_button submit" type="button" aria-label="start">NEXT TONE!</button>`
+    const quizResult = generateResultsString();
 
     const quizEnd = `
     <div class="welcome_box">
@@ -86,6 +82,7 @@ function renderQuiz() {
             };
             if (answerToggle === 1) {
                 $('.js_quiz_container').html(quizResult);
+                handleSpeakerClick();
             };
         };
     };
@@ -96,9 +93,7 @@ function renderQuiz() {
 
 // add to the score
 function scorePlusOne() {
-    console.log('`scorePlusOne` ran');
     ++score;
-    console.log(score);
 };
 
 // handles the generation of question string
@@ -132,6 +127,35 @@ function generateQuestionString() {
         <button class="js_question_button submit" type="submit">SUBMIT</button>
     </form>`
 
+};
+
+// handles the generation of results string
+function generateResultsString() {
+
+    let toneToPlayOnSpeaker = tone[index]["answerTone"];
+    let answerImage = tone[index]["answerImg"];
+
+    // if function to send to success or failure
+    if (rightOrWrong === true) {
+        return `
+        <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+        <audio id="js_play" src="${toneToPlayOnSpeaker}" preload="auto" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
+        <div class="welcome_box">
+            <h1>WAY TO GO!</h1>
+            <img src=${answerImage} alt="note on staff"></img>
+        </div>
+        <button class="js_next_button submit" type="button" aria-label="start">NEXT TONE!</button>`
+    };
+    if (rightOrWrong === false) {
+        return `
+        <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+        <audio id="js_play" src="${toneToPlayOnSpeaker}" preload="auto" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
+        <div class="welcome_box">
+            <h1>KEEP LISTENING!</h1>
+            <img src=${answerImage} alt="note on staff"></img>
+        </div>
+        <button class="js_next_button submit" type="button" aria-label="start">NEXT TONE!</button>`
+    };
 };
 
 // generate the img for answer selections
@@ -173,7 +197,9 @@ function updateQuestionNum() {
 
 // resets the quiz to beginning
 function resetQuiz() {
-    console.log('`resetQuiz` ran');
+    questionNum = 0;
+    score = 0;
+    renderQuiz();
 };
 
 // play tone with speaker icon button
@@ -210,8 +236,30 @@ function playAnswerTone() {
 // when the submit button is hit
 function handleSubmit() {
     console.log('`handleSubmit` ran')
-};
+    // begin button on welcome screen
+    $('.js_begin_button').click(function() {
+        questionNum ++;
+        answerToggle = 0;
+        renderQuiz();
+    });
 
+
+    // question submit button
+    $('.js_question_button').on('submit', function(event) {
+        event.preventDefault();
+        answerToggle = 1;
+        let selectedAnswer = $('input:checked');
+        let correctAnswer = tone[index]["correct"];
+        console.log(selectedAnswer)
+        console.log(correctAnswer)
+        // determine whether selection is correct
+        // function() {
+        //     if () {
+
+        //     };
+        // };
+    });
+}
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the HTML, and activating our individual functions
 // that handle new item submission and user clicks on the "check" and "delete" buttons
@@ -219,7 +267,6 @@ function handleSubmit() {
 function handleQuiz() {
     renderQuiz();
     scoreColor();
-    resetQuiz();
     handleSubmit();
 }
 
