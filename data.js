@@ -51,7 +51,7 @@ const tone = [
     },
     {
         answerTone: "assets/audio/d.mp3",
-        toneOptions: ["assets/audio/d.mp3", "assets/audio/a_shar.mp3", "assets/audio/c.mp3", "assets/audio/b.mp3"],
+        toneOptions: ["assets/audio/d.mp3", "assets/audio/a_sharp.mp3", "assets/audio/c.mp3", "assets/audio/b.mp3"],
         imgOptions: ["assets/img/sn/d.jpg", "assets/img/sn/a_sharp.jpg", "assets/img/sn/c.jpg", "assets/img/sn/b.jpg"],
         answerImg: "assets/img/sn/d.jpg",
         correct: "answerToneA",
@@ -83,8 +83,8 @@ const tone = [
     },
     {
         answerTone: "assets/audio/g_sharp.mp3",
-        toneOptions: ["assets/audio/g_sharp.mp3", "assets/audio/b.mp3", "assets/audio/d.mp3", "assets/audio/fsharp.mp3"],
-        imgOptions: ["assets/img/sn/g_sharp.jpg", "assets/img/sn/b.jpg", "assets/img/sn/d.jpg", "assets/img/sn/fsharp.jpg"],
+        toneOptions: ["assets/audio/g_sharp.mp3", "assets/audio/b.mp3", "assets/audio/d.mp3", "assets/audio/f_sharp.mp3"],
+        imgOptions: ["assets/img/sn/g_sharp.jpg", "assets/img/sn/b.jpg", "assets/img/sn/d.jpg", "assets/img/sn/f_sharp.jpg"],
         answerImg: "assets/img/sn/g_sharp.jpg",
         correct: "answerToneA",
         asked: false

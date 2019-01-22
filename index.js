@@ -1,13 +1,15 @@
 'use strict';
 
-let score = 8;
+let score = 0;
 let questionNum = 0;
+// random number array to mix up questions
 // controls which question is generated
 let index = 0;
 // toggles between question and results page
 let answerToggle = 0;
 // determines if correct or wrong
 let rightOrWrong = true;
+
 
 // render the quiz
 function renderQuiz() {
@@ -237,6 +239,7 @@ function handleSubmit() {
         event.preventDefault();
         questionNum ++;
         answerToggle = 0;
+        console.log(index);
         renderQuiz();
 
     });
@@ -277,7 +280,6 @@ function handleSubmit() {
 
         event.preventDefault();
         answerToggle = 0;
-
         function next() {
             if (questionNum === 11) {
                 renderQuiz();
@@ -286,6 +288,7 @@ function handleSubmit() {
                 questionNum ++;
                 index ++;
                 renderQuiz();
+                console.log(index);
             };
         };
 
@@ -299,12 +302,18 @@ function handleSubmit() {
         resetQuiz();
 
     });
-}
+};
+
+// Shuffle Questions and AnswerSets in global array */
+function shuffleQueston() {
+  tone.sort(_=>Math.random() - 0.5);
+};
+
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the HTML, and activating our individual functions
-// that handle new item submission and user clicks on the "check" and "delete" buttons
-// for individual shopping list items.
+// of randomizing the questions and the button event listeners
 function handleQuiz() {
+    shuffleQueston();
     renderQuiz();
     handleSubmit();
 }
