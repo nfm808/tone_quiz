@@ -239,7 +239,6 @@ function handleSubmit() {
         event.preventDefault();
         questionNum ++;
         answerToggle = 0;
-        console.log(index);
         renderQuiz();
 
     });
@@ -288,7 +287,6 @@ function handleSubmit() {
                 questionNum ++;
                 index ++;
                 renderQuiz();
-                console.log(index);
             };
         };
 
