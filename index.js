@@ -1,6 +1,6 @@
 'use strict';
 
-let score = 0;
+let score = 8;
 let questionNum = 0;
 // controls which question is generated
 let index = 0;
@@ -9,9 +9,8 @@ let answerToggle = 0;
 // determines if correct or wrong
 let rightOrWrong = true;
 
+// render the quiz
 function renderQuiz() {
-    // render the quiz
-    console.log('`renderQuiz` ran');
 
     // setting dynamic HTML to populate the DOM
     const quizStartString = `
@@ -51,7 +50,14 @@ function renderQuiz() {
         <li class="js_quiz_score">SCORE: <span class="js_quiz_score_number">${score}</span></li>
         <li class="js_quiz_question_number">QUESTION <span class="js_question_number">${questionNum}</span>/10</li>`
 
-        $('.js_li').html(topHTML);
+        const topMinusOne = `
+        <li class="logo">
+            <a href="index.html">LOGO</a>
+        </li>
+        <li class="js_quiz_score">SCORE: <span class="js_quiz_score_number">${score}</span></li>
+        <li class="js_quiz_question_number">QUESTION <span class="js_question_number">${questionNum -1}</span>/10</li>`
+
+        questionNum === 11 ? $('.js_li').html(topMinusOne) : $('.js_li').html(topHTML);
     };
 
     // choosing which HTML to populate based on the score
@@ -69,10 +75,10 @@ function renderQuiz() {
             $('.js_quiz_container').html(quizStartString);
             handleSpeakerClick();
          }; 
-        if (questionNum === 10) {
+        if (questionNum === 11) {
              $('.js_quiz_container').html(quizEnd);
          };
-        if (questionNum > 0 && questionNum < 10) {
+        if (questionNum > 0 && questionNum <= 10) {
             if (answerToggle === 0) {
                 $('.js_quiz_container').html(quizQuestionString);
                 handleSpeakerClick();
@@ -88,12 +94,8 @@ function renderQuiz() {
     };
 
     renderTopBar();
+    scoreColor();
     determineHTML();
-};
-
-// add to the score
-function scorePlusOne() {
-    ++score;
 };
 
 // handles the generation of question string
@@ -111,17 +113,17 @@ function generateQuestionString() {
     return `
     <button class="js_speaker_button" type="button" aria-label="play tone"></button>
     <audio id="js_play" src="${toneToPlayOnSpeaker}" preload="auto" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
-    <form class="js_quiz">
-        <input type="radio" id="answerToneA" name="answer" value="answerToneA" required />
+    <form class="js_quiz" action="" method="post">
+        <input type="radio" id="answerToneA" name="answer" value="answerToneA" required="required" />
         <label class="js_quiz answerTone first" for="answerToneA"></label>
         <audio id="js_play_A" src="${toneAnswerA}" preload="auto" ></audio>
-        <input type="radio" id="answerToneB" name="answer" value="answerToneB" required />
+        <input type="radio" id="answerToneB" name="answer" value="answerToneB"  />
         <label class="js_quiz answerTone second" for="answerToneB"></label>
         <audio id="js_play_B" src="${toneAnswerB}" preload="auto" ></audio>
-        <input type="radio" id="answerToneC" name="answer" value="answerToneC" required />
+        <input type="radio" id="answerToneC" name="answer" value="answerToneC"  />
         <label class="js_quiz answerTone third" for="answerToneC"></label>
         <audio id="js_play_C" src="${toneAnswerC}" preload="auto" ></audio>
-        <input type="radio" id="answerToneD" name="answer" value="answerToneD" required />
+        <input type="radio" id="answerToneD" name="answer" value="answerToneD"  />
         <label class="js_quiz answerTone fourth" for="answerToneD"></label></br>
         <audio id="js_play_D" src="${toneAnswerD}" preload="auto" ></audio>
         <button class="js_question_button submit" type="submit">SUBMIT</button>
@@ -144,7 +146,7 @@ function generateResultsString() {
             <h1>WAY TO GO!</h1>
             <img src=${answerImage} alt="note on staff"></img>
         </div>
-        <button class="js_next_button submit" type="button" aria-label="start">NEXT TONE!</button>`
+        <button class="js_next_button submit" type="button" aria-label="start">NEXT!</button>`
     };
     if (rightOrWrong === false) {
         return `
@@ -154,7 +156,7 @@ function generateResultsString() {
             <h1>KEEP LISTENING!</h1>
             <img src=${answerImage} alt="note on staff"></img>
         </div>
-        <button class="js_next_button submit" type="button" aria-label="start">NEXT TONE!</button>`
+        <button class="js_next_button submit" type="button" aria-label="start">NEXT!</button>`
     };
 };
 
@@ -189,22 +191,16 @@ function scoreColor() {
     }
 };
 
-// update the current question
-function updateQuestionNum() {
-    console.log('`updateQuestionNum` ran');
-    ++questionNum;
-};
-
 // resets the quiz to beginning
 function resetQuiz() {
     questionNum = 0;
     score = 0;
+    index = 0;
     renderQuiz();
 };
 
 // play tone with speaker icon button
 function handleSpeakerClick() {
-    console.log('`playTone` ran');
 
     $('.js_speaker_button').click(function() {
 
@@ -216,18 +212,17 @@ function handleSpeakerClick() {
 // play tone associated with answer selection 
 // as user selects the answer choice
 function playAnswerTone() {
-    console.log('`playAnswerTone` ran');
 
-    $('#answerToneA').focus(function() {
+    $('input[id="answerToneA"]').on('focus change',function() {
         $('#js_play_A').get(0).play();
     });
-    $('#answerToneB').focus(function() {
+    $('input[id="answerToneB"]').on('focus change',function() {
         $('#js_play_B').get(0).play();
     });
-    $('#answerToneC').focus(function() {
+    $('input[id="answerToneC"]').on('focus change',function() {
         $('#js_play_C').get(0).play();
     });
-    $('#answerToneD').focus(function() {
+    $('input[id="answerToneD"]').on('focus change',function() {
         $('#js_play_D').get(0).play();
     });
 
@@ -235,29 +230,74 @@ function playAnswerTone() {
 
 // when the submit button is hit
 function handleSubmit() {
-    console.log('`handleSubmit` ran')
+
     // begin button on welcome screen
-    $('.js_begin_button').click(function() {
+    $('.js_quiz_container').on('click', '.js_begin_button', function(event) {
+
+        event.preventDefault();
         questionNum ++;
         answerToggle = 0;
         renderQuiz();
+
     });
 
 
     // question submit button
-    $('.js_question_button').on('submit', function(event) {
+    $('.js_quiz_container').on('click', '.js_question_button', function(event) {
+        
         event.preventDefault();
-        answerToggle = 1;
-        let selectedAnswer = $('input:checked');
-        let correctAnswer = tone[index]["correct"];
-        console.log(selectedAnswer)
-        console.log(correctAnswer)
-        // determine whether selection is correct
-        // function() {
-        //     if () {
+        
 
-        //     };
-        // };
+        // get values to check for correct of incorrect
+        let selectedAnswer = $('input:checked').val();
+        let correctAnswer = tone[index]["correct"];
+
+        // determine whether selection is correct
+        function isRight() {
+            if (selectedAnswer == undefined) {
+                alert('Please choose an answer!');
+                    return false;
+                };
+            if (selectedAnswer === correctAnswer) {
+                rightOrWrong = true;
+                score ++;
+                answerToggle = 1;
+            };
+            if (selectedAnswer !== correctAnswer) {
+                rightOrWrong = false;
+                answerToggle = 1;
+            };
+        };
+        isRight();
+        renderQuiz();
+    });
+
+    // next button submit
+    $('.js_quiz_container').on('click', '.js_next_button', function(event) {
+
+        event.preventDefault();
+        answerToggle = 0;
+
+        function next() {
+            if (questionNum === 11) {
+                renderQuiz();
+            }; 
+            if (questionNum <= 10) {
+                questionNum ++;
+                index ++;
+                renderQuiz();
+            };
+        };
+
+        next();
+    });
+
+    // restart button submit
+    $('.js_quiz_container').on('click', '.js_restart_button', function(event) {
+
+        event.preventDefault();
+        resetQuiz();
+
     });
 }
 // this function will be our callback when the page loads. it's responsible for
@@ -266,7 +306,6 @@ function handleSubmit() {
 // for individual shopping list items.
 function handleQuiz() {
     renderQuiz();
-    scoreColor();
     handleSubmit();
 }
 
