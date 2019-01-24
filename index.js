@@ -1,7 +1,7 @@
 'use strict';
 
 let score = 0;
-let questionNum = 10;
+let questionNum = 0;
 // random number array to mix up questions
 // controls which question is generated
 let index = 0;
