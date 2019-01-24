@@ -105,11 +105,19 @@ li, a {
     padding-top: 5px;
     border-radius: 5%;
 }
+.answerTone{
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    border:2px solid black;
+    border-radius: 5%;
+    width:100px;height:100px;
+}
 
 
-
-@media screen and (min-width: 280px) {
-    
+/* mobile in portrait orientation */
+@media screen and (min-width: 280px) {   
     nav ul {
         display: flex;
         align-items: center;
@@ -152,16 +160,110 @@ li, a {
     }
 
     .welcome_box li {
-    margin-right: 30px;
-    margin-bottom: 3vh; 
-    padding-bottom: 5px;   
+        margin-right: 30px;
+        margin-bottom: 3vh; 
+        padding-bottom: 5px;   
     }
     h1 {
         margin-top: -3vh;
         margin-bottom: 5vh;
+        font-size: 3vh;
     }
 }
 
+/* mobile in landscape orientation */
+@media screen and (max-height: 639px) and (orientation: landscape) {
+    nav ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-grow: 1;
+        margin-right: 20px;
+        margin-top: 3vh;
+        text-decoration: none;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 1fr;
+        grid-gap: 3px;
+        height: 100vh;
+        grid-template-areas: 
+            "nav"
+            "quiz";
+        background: url(assets/img/layout/desktop_background.jpg) no-repeat center center;
+        background-size: cover;
+        overflow: hidden;
+    }
+    .inner_grid {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-grow: 1;
+        height: 70vh;
+        width: 60vw;
+        margin: 15vh auto 10vh auto;
+        background: rgba(243,242,242, 0.7);
+        border-radius: 5%;
+    }
+    form {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto .001px;
+        grid-gap: 5vh;
+        align-content: center;
+        align-items: center;
+        margin-top: 3vh;
+        grid-template-areas: 
+            "answerToneA answerToneB answerToneC answerToneD"
+            ". submit submit .";
+    }
+    h1 {
+        margin-top: 10px;
+        font-size: 3vh;
+    } 
+
+    .submit {
+        height: 30px;
+        width: 80px;
+        background: #007fff;
+        border: 2px solid black;
+        border-radius: 5%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2vh;
+        font-size: 3vh;
+        margin-bottom: 10px;
+    }
+    form > .answerTone {
+        height: 40px;
+        width: 40px;
+    }
+    .welcome_box li {
+        font-size: 3vh;
+    }
+    .speaker {
+        cursor:pointer;
+        height: 50px;
+        width: 50px;
+        background-image: url(assets/img/layout/speaker.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        background-color: transparent;
+        text-shadow: none;
+        border-radius: 50%;
+        margin-bottom: 5px;
+        margin-top: 10px;
+    }
+    
+    
+}
+
+
+/* tablet and larger landscpe screen settings */
 @media screen and (min-height: 640px) and (orientation: landscape) {
     nav ul {
         display: flex;
@@ -169,7 +271,7 @@ li, a {
         justify-content: space-around;
         flex-grow: 1;
         margin-right: 20px;
-        padding-top: 1vh;
+        margin-top: 3vh;
         text-decoration: none;
     }
 
@@ -205,25 +307,106 @@ li, a {
         grid-gap: 5vh;
         align-content: center;
         align-items: center;
-        margin-top: 1vh;
+        margin-top: 3vh;
         grid-template-areas: 
             "answerToneA answerToneB answerToneC answerToneD"
             ". submit submit .";
     }
+    h1 {
+        margin-top: 10px;
+        font-size: 3vh;
+    } 
 
-    
+    .submit {
+        height: 70px;
+        width: 150px;
+        background: #007fff;
+        border: 2px solid black;
+        border-radius: 5%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2vh;
+        font-size: 3vh;
+        margin-bottom: 10px;
+    }
+    form > .answerTone {
+        height: 110px;
+        width: 110px;
+    }
+    .welcome_box li {
+        font-size: 3vh;
+    }
+    .speaker {
+        width:
+    }
+    .speaker {
+        cursor:pointer;
+        height: 130px;
+        width: 130px;
+        background-image: url(assets/img/layout/speaker.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        background-color: transparent;
+        text-shadow: none;
+        border-radius: 50%;
+        margin-bottom: 5px;
+        margin-top: 10px;
+    }
+
+ 
 }
 
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 760px) and (orientation: portrait) {
     nav ul {
         display: flex;
         align-items: center;
         justify-content: space-around;
         flex-grow: 1;
         margin-right: 20px;
-        padding-top: 1vh;
+        margin-top: 2vh;
         text-decoration: none;
     }
+    .inner_grid {
+        width: 70vw;
+    }
+    .speaker {
+        cursor:pointer;
+        height: 200px;
+        width: 200px;
+        background-image: url(assets/img/layout/speaker.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        background-color: transparent;
+        text-shadow: none;
+        border-radius: 50%;
+        margin-bottom: 5px;
+        margin-top: 10px;
+    }
+
+    .submit {
+        height: 100px;
+        width: 300px;
+        background: #007fff;
+        border: 2px solid black;
+        border-radius: 5%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2vh;
+        font-size: 3vh;
+    }
+    form > .answerTone {
+        height: 160px;
+        width: 160px;
+    }
+    h1 {
+        font-size: 3vh;
+    }
+    .welcome_box li {
+        font-size: 3vh;
+    }
+    
  
 }
 
