@@ -1,7 +1,7 @@
 'use strict';
 
 let score = 0;
-let questionNum = 0;
+let questionNum = 10;
 // random number array to mix up questions
 // controls which question is generated
 let index = 0;
@@ -16,7 +16,7 @@ function renderQuiz() {
 
     // setting dynamic HTML to populate the DOM
     const quizStartString = `
-    <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+    <button class="js_speaker_button speaker" type="button" aria-label="play tone"></button>
     <audio id="js_play" src="assets/audio/quiz_app_start_fast.mp3" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
     <div class="welcome_box">
         <ul>
@@ -32,12 +32,14 @@ function renderQuiz() {
     const quizResult = generateResultsString();
 
     const quizEnd = `
+    <button class="js_speaker_button speaker" type="button" aria-label="play tone"></button>
+    <audio id="js_play" src="assets/audio/quiz_app_start_fast.mp3" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
     <div class="welcome_box">
         <ul>
             <li>CONGRATULATIONS!</li>
             <li>A SPECIAL THANKS TO:</li>
-            <li><a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@tayaiv?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Taya Iv"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Taya Iv</span></a></li>
-            <li><a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@jefflssantos?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Jefferson Santos"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Jefferson Santos</span></a></li>
+            <li><a class="thanks" style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@tayaiv?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Taya Iv"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Taya Iv</span></a></li>
+            <li><a class="thanks" style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@jefflssantos?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Jefferson Santos"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Jefferson Santos</span></a></li>
         </ul>
         <button class="js_restart_button submit" type="button" aria-label="start">PLAY AGAIN!</button>
     </div>`
@@ -46,16 +48,12 @@ function renderQuiz() {
     function renderTopBar() {
         
         const topHTML = `
-        <li class="logo">
-            <a href="index.html">LOGO</a>
-        </li>
+        <li class="logo"><a href="index.html">HOME</a></li>
         <li class="js_quiz_score">SCORE: <span class="js_quiz_score_number">${score}</span></li>
         <li class="js_quiz_question_number">QUESTION <span class="js_question_number">${questionNum}</span>/10</li>`
 
         const topMinusOne = `
-        <li class="logo">
-            <a href="index.html">LOGO</a>
-        </li>
+        <li class="logo"><a href="index.html">HOME</a></li>
         <li class="js_quiz_score">SCORE: <span class="js_quiz_score_number">${score}</span></li>
         <li class="js_quiz_question_number">QUESTION <span class="js_question_number">${questionNum -1}</span>/10</li>`
 
@@ -79,6 +77,7 @@ function renderQuiz() {
          }; 
         if (questionNum === 11) {
              $('.js_quiz_container').html(quizEnd);
+             handleSpeakerClick();
          };
         if (questionNum > 0 && questionNum <= 10) {
             if (answerToggle === 0) {
@@ -113,20 +112,20 @@ function generateQuestionString() {
 
     // return the HTML for DOM insertion
     return `
-    <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+    <button class="js_speaker_button speaker" type="button" aria-label="play tone"></button>
     <audio id="js_play" src="${toneToPlayOnSpeaker}" preload="auto" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
-    <form class="js_quiz" action="" method="post">
-        <input type="radio" id="answerToneA" name="answer" value="answerToneA" required="required" />
-        <label class="js_quiz answerTone first" for="answerToneA"></label>
+    <form class="js_quiz welcome_box" action="" method="post">
+        <input type="radio" class="answerToneA" id="answerToneA" name="answer" value="answerToneA" required="required" />
+        <label class="js_quiz answerTone answerToneA first" for="answerToneA"></label>
         <audio id="js_play_A" src="${toneAnswerA}" preload="auto" ></audio>
-        <input type="radio" id="answerToneB" name="answer" value="answerToneB"  />
-        <label class="js_quiz answerTone second" for="answerToneB"></label>
+        <input type="radio" class="answerToneB" id="answerToneB" name="answer" value="answerToneB"  />
+        <label class="js_quiz answerTone answerToneB second" for="answerToneB"></label>
         <audio id="js_play_B" src="${toneAnswerB}" preload="auto" ></audio>
-        <input type="radio" id="answerToneC" name="answer" value="answerToneC"  />
-        <label class="js_quiz answerTone third" for="answerToneC"></label>
+        <input type="radio" class="answerToneC" id="answerToneC" name="answer" value="answerToneC"  />
+        <label class="js_quiz answerTone answerToneC third" for="answerToneC"></label>
         <audio id="js_play_C" src="${toneAnswerC}" preload="auto" ></audio>
-        <input type="radio" id="answerToneD" name="answer" value="answerToneD"  />
-        <label class="js_quiz answerTone fourth" for="answerToneD"></label></br>
+        <input type="radio" class="answerToneD" id="answerToneD" name="answer" value="answerToneD"  />
+        <label class="js_quiz answerTone answerToneD fourth" for="answerToneD"></label></br>
         <audio id="js_play_D" src="${toneAnswerD}" preload="auto" ></audio>
         <button class="js_question_button submit" type="submit">SUBMIT</button>
     </form>`
@@ -142,21 +141,21 @@ function generateResultsString() {
     // if function to send to success or failure
     if (rightOrWrong === true) {
         return `
-        <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+        <button class="js_speaker_button speaker" type="button" aria-label="play tone"></button>
         <audio id="js_play" src="${toneToPlayOnSpeaker}" preload="auto" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
         <div class="welcome_box">
             <h1>WAY TO GO!</h1>
-            <img src=${answerImage} alt="note on staff"></img>
+            <img class="result_img" src=${answerImage} alt="note on staff"></img>
         </div>
         <button class="js_next_button submit" type="button" aria-label="start">NEXT!</button>`
     };
     if (rightOrWrong === false) {
         return `
-        <button class="js_speaker_button" type="button" aria-label="play tone"></button>
+        <button class="js_speaker_button speaker" type="button" aria-label="play tone"></button>
         <audio id="js_play" src="${toneToPlayOnSpeaker}" preload="auto" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
         <div class="welcome_box">
             <h1>KEEP LISTENING!</h1>
-            <img src=${answerImage} alt="note on staff"></img>
+            <img class="result_img" src=${answerImage} alt="note on staff"></img>
         </div>
         <button class="js_next_button submit" type="button" aria-label="start">NEXT!</button>`
     };
