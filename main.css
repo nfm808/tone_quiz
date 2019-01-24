@@ -202,9 +202,9 @@ li, a {
         justify-content: space-evenly;
         align-items: center;
         flex-grow: 1;
-        height: 70vh;
-        width: 60vw;
-        margin: 15vh auto 10vh auto;
+        height: 80vh;
+        width: 70vw;
+        margin: 5vh auto 10vh auto;
         background: rgba(243,242,242, 0.7);
         border-radius: 5%;
     }
@@ -238,16 +238,16 @@ li, a {
         margin-bottom: 10px;
     }
     form > .answerTone {
-        height: 40px;
-        width: 40px;
+        height: 70px;
+        width: 70px;
     }
     .welcome_box li {
         font-size: 3vh;
     }
     .speaker {
         cursor:pointer;
-        height: 50px;
-        width: 50px;
+        height: 70px;
+        width: 70px;
         background-image: url(assets/img/layout/speaker.png);
         background-repeat: no-repeat;
         background-position: center center;
@@ -294,9 +294,9 @@ li, a {
         justify-content: space-evenly;
         align-items: center;
         flex-grow: 1;
-        height: 60vh;
-        width: 60vw;
-        margin: 15vh auto 10vh auto;
+        height: 80vh;
+        width: 90vw;
+        margin: 5vh auto 10vh auto;
         background: rgba(243,242,242, 0.7);
         border-radius: 5%;
     }
@@ -318,7 +318,7 @@ li, a {
     } 
 
     .submit {
-        height: 70px;
+        height: 80px;
         width: 150px;
         background: #007fff;
         border: 2px solid black;
@@ -330,19 +330,16 @@ li, a {
         margin-bottom: 10px;
     }
     form > .answerTone {
-        height: 110px;
-        width: 110px;
+        height: 180px;
+        width: 180px;
     }
     .welcome_box li {
         font-size: 3vh;
     }
     .speaker {
-        width:
-    }
-    .speaker {
         cursor:pointer;
-        height: 130px;
-        width: 130px;
+        height: 180px;
+        width: 180px;
         background-image: url(assets/img/layout/speaker.png);
         background-repeat: no-repeat;
         background-position: center center;
@@ -356,7 +353,7 @@ li, a {
 
  
 }
-
+/* tablet in portrait */
 @media screen and (min-width: 760px) and (orientation: portrait) {
     nav ul {
         display: flex;
@@ -369,6 +366,8 @@ li, a {
     }
     .inner_grid {
         width: 70vw;
+        height: 85vh;
+        margin-top: 3vh;
     }
     .speaker {
         cursor:pointer;
@@ -397,8 +396,8 @@ li, a {
         font-size: 3vh;
     }
     form > .answerTone {
-        height: 160px;
-        width: 160px;
+        height: 170px;
+        width: 170px;
     }
     h1 {
         font-size: 3vh;
