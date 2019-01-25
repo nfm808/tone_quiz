@@ -36,7 +36,7 @@ function renderQuiz() {
     <audio id="js_play" src="assets/audio/quiz_app_start_fast.mp3" >YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT</audio>
     <div class="welcome_box">
         <ul>
-            <li>CONGRATULATIONS!</li>
+            <li>CONGRATULATIONS! YOU GOT: <span>${score}</span>/10</li>
             <li>A SPECIAL THANKS TO:</li>
             <li><a class="thanks" style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@tayaiv?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Taya Iv"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Taya Iv</span></a></li>
             <li><a class="thanks" style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@jefflssantos?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Jefferson Santos"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Jefferson Santos</span></a></li>
@@ -62,14 +62,6 @@ function renderQuiz() {
 
     // choosing which HTML to populate based on the score
     function determineHTML() {
-
-        // saved for future implementation on website
-        // if (score === 0) {
-        //    $('.js_quiz_container').html(quizStartString);
-        // }; 
-        // if (score === 10) {
-        //     $('.js_quiz_container').html(quizEnd);
-        // };
 
         if (questionNum === 0) {
             $('.js_quiz_container').html(quizStartString);
@@ -228,6 +220,7 @@ function playAnswerTone() {
     });
 
 };
+
 
 // when the submit button is hit
 function handleSubmit() {
