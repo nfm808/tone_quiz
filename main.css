@@ -126,6 +126,19 @@ form > input:focus + label {
 a:focus {
     border: 1px solid red;
 }
+form > input:checked + label {
+    border: 2px solid red;
+}
+.speaker:checked {
+    border: 2px solid red;
+}
+.submit:checked {
+    border: 2px solid red;
+}
+a:checked {
+    border: 1px solid red;
+}
+
 
 
 /* mobile in portrait orientation */
